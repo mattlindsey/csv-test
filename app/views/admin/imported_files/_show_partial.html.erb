@@ -1,0 +1,21 @@
+<style>
+table, th, td {
+  border: 1px solid black;
+}
+</style>
+<% csv_file = CSV.read(ActiveStorage::Blob.service.path_for(imported_file.avatar.key), headers: true) %>
+<table>
+	<% csv_file.headers.each do |header|%>
+		<th><%= header %></th>
+	<% end %>
+
+	<% csv_file.each do |csv| %>
+		<tr>
+			<% count = 0 %>
+			<% csv.headers.count.times do %>
+				<td><%= csv[count] %></td>
+				<% count = count + 1 %>
+			<% end %>
+		</tr>
+	<% end %>
+</table>
